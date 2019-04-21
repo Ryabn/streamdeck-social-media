@@ -15,9 +15,9 @@
 
 		var DestinationEnum = Object.freeze({ "HARDWARE_AND_SOFTWARE": 0, "HARDWARE_ONLY": 1, "SOFTWARE_ONLY": 2 })
 
-        let deletePost = (id) => {
-            fetch(`https://graph.facebook.com/${resp.id}/feed?message=${message}&access_token=${resp.access_token}`, {
-                method: 'POST'
+        let deletePost = (id, access_token) => {
+            fetch(`https://graph.facebook.com/${id}/access_token=${access_token}`, {
+                method: 'DELETE'
             }).then(resp => {
                 return resp.json();
             }).then(resp => {
@@ -40,6 +40,7 @@
                         ? settings["post"] 
                         : `I've started streaming now. ${currentTime.toISOString()}`;
                     console.log('Make call: ', message, temp);
+                    let tok = resp.access_token;
                     fetch(`https://graph.facebook.com/${fb_group_id}/feed?message=${message}&access_token=${resp.access_token}`, {
                         method: 'POST'
                     }).then(resp => {
@@ -47,7 +48,7 @@
                     }).then(resp => {
                         console.log('[ MAKE ] post is: ', resp);
                         if(!temp){
-                            setTimeout(() => { deletePost(resp.id);}, 12000);
+                            setTimeout(() => { deletePost(resp.id, tok);}, 20000);
                         }
                         numberdisplayAction.SetTitle(context, "Posted!");
                     });
