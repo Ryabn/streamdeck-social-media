@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>tech.ryanqyang.socialMedia</title>
+    <link rel="stylesheet" href="sdpi.css">
+    <script src="common.js"></script>
+</head>
+
+<body>
+    <div class="sdpi-wrapper">
+        <div type="select" class="sdpi-item">
+            <div class="sdpi-item-label">Accounts</div>
+            <select class="sdpi-item-value select setvalueSelect" onchange="sendValueToPlugin(Number(event.target.value), 'setValue')">
+            </select>
+        </div>
+        <div type="select" class="sdpi-item">
+            <div class="sdpi-item-label">Post</div>
+            <textarea class="sdpi-item-value select setvalueSelect" onchange="sendValueToPlugin(Number(event.target.value), 'setValue')"></textarea>
+        </div>
+        <div type="select" class="sdpi-item">
+            <div class="sdpi-item-label">Background</div>
+            <select class="sdpi-item-value select" onchange="sendValueToPlugin(event.target.value, 'background-image')">
+            </select>
+        </div>
+    </div>
+
+    <script>
+        var pluginAction = null,
+            uuid = '',
+            aValueSlider = document.querySelectorAll('.setvalueSlider'),
+            oValueSelector = document.querySelector(".setvalueSelect");
+
+        if ($SD) {
+            $SD.on('connected', function (jsonObj) {
+                uuid = jsonObj['uuid'];
+                if (jsonObj.hasOwnProperty('actionInfo')) {
+                    pluginAction = jsonObj.actionInfo['action'];
+                }
+            });
+        }
+        function sendValueToPlugin(value, param) {
+
+            console.log("SENDING VALUE TO PLUGIN: ", value, uuid, pluginAction);
+            if (param === 'setValue') {
+
+                aValueSlider && Array.prototype.forEach.call(aValueSlider, function (ctl) {
+                    ctl.value = value;
+                })
+
+                oValueSelector && Array.prototype.forEach.call(oValueSelector.options, function (o) {
+                    const val = Math.round(value);
+                    if (o.value !== val) {
+                        oValueSelector.value = val;
+                    }
+                })
+            }
+
+            if ($SD && $SD.connection) {
+                var payload = {};
+                if (param) {
+                    payload[param] = value;
+                }
+                $SD.api.sendToPlugin(uuid, pluginAction, payload);
+            }
+        }
+    </script>
+
+</body>
+
+</html>

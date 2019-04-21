@@ -1,0 +1,41 @@
+{
+  "Actions": [
+    {
+      "Icon": "logo",
+      "Name": "Number Display",
+      "States": [
+        {
+          "Image": "logo",
+          "TitleAlignment": "middle",
+          "FontSize": "16"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "This action displays a value set by the user",
+      "UUID": "tech.ryanqyang.socialMedia.sdPlugin"
+    }
+  ],
+  "SDKVersion": 2,
+  "Author": "Ryan Yang, Francis Kyle Barez Cuarteros, Tiffany Joa",
+  "CodePath": "index.html",
+  "Description": "Make posts on all of your social media accounts with the press of a button",
+  "Name": "Social Media",
+  "Icon": "logo",
+  "URL": "https://ryabn.github.io",
+  "PropertyInspectorPath": "socialMedia.html",
+  "Version": "1.4",
+  "OS": [
+    {
+      "Platform": "mac",
+      "MinimumVersion": "10.11"
+    },
+    {
+      "Platform": "windows",
+      "MinimumVersion": "10"
+    }
+  ],
+  "Software": 
+    {
+        "MinimumVersion" : "4.1"
+    }
+}
