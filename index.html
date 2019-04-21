@@ -21,7 +21,7 @@
             }).then(resp => {
                 return resp.json();
             }).then(resp => {
-                console.log('post is: ', resp);
+                console.log('[ MAKE ] post is: ', resp);
                 if(temporary){
                     setTimeout(() => { deletePost(resp.id);}, 5000);
                 }
@@ -34,7 +34,7 @@
             }).then(resp => {
                 return resp.json();
             }).then(resp => {
-                console.log('post is: ', resp);
+                console.log('[ DELETE ] post is: ', resp);
                 numberdisplayAction.SetTitle(context, "Deleted!");
             });
         }
@@ -50,6 +50,7 @@
                     let message = (settings != null && settings.hasOwnProperty('post')  && settings['post'] != '')
                         ? settings["post"] 
                         : `I've started streaming now. ${currentTime.toISOString()}`;
+                        console.log('Make call: ', message, temp);
                         makePost(resp, message, temp);
                 }).catch(err => {
                     numberdisplayAction.SetTitle(context, "Error!");
