@@ -50,8 +50,8 @@
                     let message = (settings != null && settings.hasOwnProperty('post')  && settings['post'] != '')
                         ? settings["post"] 
                         : `I've started streaming now. ${currentTime.toISOString()}`;
-                        console.log('Make call: ', message, temp);
-                        makePost(resp, message, temp);
+                    console.log('Make call: ', message, temp);
+                    makePost(resp, message, temp);
                 }).catch(err => {
                     numberdisplayAction.SetTitle(context, "Error!");
                 });
@@ -92,7 +92,7 @@
 						"target": DestinationEnum.HARDWARE_AND_SOFTWARE
 					}
 				};
-                console.log("Set title called: ", context, keyPressCounter, DestinationEnum.HARDWARE_AND_SOFTWARE);
+                console.log("Set title called: ", context, DestinationEnum.HARDWARE_AND_SOFTWARE);
 				websocket.send(JSON.stringify(json));
 			},
 
