@@ -31,7 +31,6 @@
             uuid = '',
             aValueSlider = document.querySelectorAll('.setvalueSlider'),
             oValueSelector = document.querySelector(".setvalueSelect");
-
         if ($SD) {
             $SD.on('connected', function (jsonObj) {
                 uuid = jsonObj['uuid'];
@@ -41,7 +40,6 @@
             });
         }
         function sendValueToPlugin(value, param) {
-
             console.log("SENDING VALUE TO PLUGIN: ", value, uuid, pluginAction);
             if (param === 'setValue') {
 

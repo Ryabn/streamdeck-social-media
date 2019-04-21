@@ -19,7 +19,7 @@
 			type: "com.elgato.numberdisplay.action",
 
 			onKeyDown: function (context, settings, coordinates, userDesiredState) {
-                
+
                 console.log(context, settings, coordinates, userDesiredState);
 			},
 			onKeyUp: function (context, settings, coordinates, userDesiredState) {
@@ -60,7 +60,7 @@
 						"target": DestinationEnum.HARDWARE_AND_SOFTWARE
 					}
 				};
-
+                console.log("Set title called: ", context, keyPressCounter, DestinationEnum.HARDWARE_AND_SOFTWARE);
 				websocket.send(JSON.stringify(json));
 			},
 
@@ -70,12 +70,13 @@
 					"context": context,
 					"payload": settings
 				};
-
+                console.log("Set Settings function called:", context, settings);
 				websocket.send(JSON.stringify(json));
 			},
 
 			AddToSettings: function (context, newSettings) {
-				settingsCache[context]
+                settingsCache[context];
+                console.log("Add to settings function called:", context, newSettings);
 			}
 		};
 
