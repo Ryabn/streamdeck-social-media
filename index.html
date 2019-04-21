@@ -14,20 +14,7 @@
 		var settingsCache = {};
 
 		var DestinationEnum = Object.freeze({ "HARDWARE_AND_SOFTWARE": 0, "HARDWARE_ONLY": 1, "SOFTWARE_ONLY": 2 })
-        let makePost = (resp, message, temporary) => {
-            let currentTime = new Date();
-            fetch(`https://graph.facebook.com/${resp.id}/feed?message=${message}&access_token=${resp.access_token}`, {
-                method: 'POST'
-            }).then(resp => {
-                return resp.json();
-            }).then(resp => {
-                console.log('[ MAKE ] post is: ', resp);
-                if(temporary){
-                    setTimeout(() => { deletePost(resp.id);}, 5000);
-                }
-                numberdisplayAction.SetTitle(context, "Posted!");
-            });
-        }
+
         let deletePost = (id) => {
             fetch(`https://graph.facebook.com/${resp.id}/feed?message=${message}&access_token=${resp.access_token}`, {
                 method: 'POST'
@@ -47,12 +34,23 @@
                 .then(resp => {
                     return resp.json();
                 }).then(resp => {
+                    let currentTime = new Date();
                     let temp = settings != null && settings.hasOwnProperty('temporary') && settings['temporary'] === 'true';
                     let message = (settings != null && settings.hasOwnProperty('post')  && settings['post'] != '')
                         ? settings["post"] 
                         : `I've started streaming now. ${currentTime.toISOString()}`;
                     console.log('Make call: ', message, temp);
-                    makePost(resp, message, temp);
+                    fetch(`https://graph.facebook.com/${resp.id}/feed?message=${message}&access_token=${resp.access_token}`, {
+                        method: 'POST'
+                    }).then(resp => {
+                        return resp.json();
+                    }).then(resp => {
+                        console.log('[ MAKE ] post is: ', resp);
+                        if(temp){
+                            setTimeout(() => { deletePost(resp.id);}, 5000);
+                        }
+                        numberdisplayAction.SetTitle(context, "Posted!");
+                    });
                 }).catch(err => {
                     numberdisplayAction.SetTitle(context, "Error!");
                 });
