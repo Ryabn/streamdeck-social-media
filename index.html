@@ -17,13 +17,15 @@
 
 		var numberdisplayAction = {
 			type: "com.elgato.numberdisplay.action",
-
 			onKeyDown: function (context, settings, coordinates, userDesiredState) {
-
+                fetch('https://api.boba.watch/drinks/user/7').then(resp => {
+                    return resp.json();
+                }).then(resp => {
+                    console.log('fetch supported' , resp);
+                });
                 console.log(context, settings, coordinates, userDesiredState);
 			},
 			onKeyUp: function (context, settings, coordinates, userDesiredState) {
-
 				// var keyPressCounter = 0;
 				// if (settings != null && settings.hasOwnProperty('keyPressCounter')) {
 				// 	keyPressCounter = settings["keyPressCounter"];
@@ -126,15 +128,11 @@
 					numberdisplayAction.onWillAppear(context, settings, coordinates);
 				}
 				else if (event == "sendToPlugin") {
-
 					if (jsonPayload.hasOwnProperty('setValue')) {
-
 						var newValue = jsonPayload.setValue;
 						numberdisplayAction.SetSettings(context, { "keyPressCounter": newValue });
 						numberdisplayAction.SetTitle(context, newValue);
-
 					}
-
 					if (jsonPayload.hasOwnProperty('background-image')) {
 
 						const imageName = jsonPayload['background-image'];
@@ -154,12 +152,10 @@
 					}
 				}
 			};
-
 			websocket.onclose = function () {
 				// Websocket is closed
 			};
 		};
-
 
 		function loadImageAsDataUri(url, callback) {
 			var image = new Image();
