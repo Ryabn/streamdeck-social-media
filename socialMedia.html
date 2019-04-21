@@ -12,16 +12,18 @@
     <div class="sdpi-wrapper">
         <div type="select" class="sdpi-item">
             <div class="sdpi-item-label">Accounts</div>
-            <select class="sdpi-item-value select setvalueSelect" onchange="sendValueToPlugin(Number(event.target.value), 'setValue')">
+            <select class="sdpi-item-value select setvalueSelect" onchange="sendValueToPlugin(Number(event.target.value), 'Accounts')">
             </select>
         </div>
         <div type="select" class="sdpi-item">
             <div class="sdpi-item-label">Post</div>
-            <textarea class="sdpi-item-value select setvalueSelect" onchange="sendValueToPlugin(Number(event.target.value), 'setValue')"></textarea>
+            <textarea class="sdpi-item-value select setvalueSelect" onchange="sendValueToPlugin(event.target.value, 'post')"></textarea>
         </div>
         <div type="select" class="sdpi-item">
-            <div class="sdpi-item-label">Background</div>
-            <select class="sdpi-item-value select" onchange="sendValueToPlugin(event.target.value, 'background-image')">
+            <div class="sdpi-item-label">Temporary</div>
+            <select class="sdpi-item-value select" onchange="sendValueToPlugin(event.target.value, 'temporary')">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
             </select>
         </div>
     </div>
@@ -40,21 +42,7 @@
             });
         }
         function sendValueToPlugin(value, param) {
-            console.log("SENDING VALUE TO PLUGIN: ", value, uuid, pluginAction);
-            if (param === 'setValue') {
-
-                aValueSlider && Array.prototype.forEach.call(aValueSlider, function (ctl) {
-                    ctl.value = value;
-                })
-
-                oValueSelector && Array.prototype.forEach.call(oValueSelector.options, function (o) {
-                    const val = Math.round(value);
-                    if (o.value !== val) {
-                        oValueSelector.value = val;
-                    }
-                })
-            }
-
+            console.log("SENDING VALUE TO PLUGIN: ", value, uuid, pluginAction, param);
             if ($SD && $SD.connection) {
                 var payload = {};
                 if (param) {
