@@ -30,7 +30,7 @@
 			onKeyDown: function (context, settings, coordinates, userDesiredState) {
                 numberdisplayAction.SetTitle(context, "Posting...");
                 console.log('check');
-                fetch(`https://graph.facebook.com/682146132204648/?fields=access_token&access_token=${fb_access_token}`)
+                fetch(`https://graph.facebook.com/${fb_group_id}/?fields=access_token&access_token=${fb_access_token}`)
                 .then(resp => {
                     return resp.json();
                 }).then(resp => {
@@ -40,14 +40,14 @@
                         ? settings["post"] 
                         : `I've started streaming now. ${currentTime.toISOString()}`;
                     console.log('Make call: ', message, temp);
-                    fetch(`https://graph.facebook.com/${resp.id}/feed?message=${message}&access_token=${resp.access_token}`, {
+                    fetch(`https://graph.facebook.com/${fb_group_id}/feed?message=${message}&access_token=${resp.access_token}`, {
                         method: 'POST'
                     }).then(resp => {
                         return resp.json();
                     }).then(resp => {
                         console.log('[ MAKE ] post is: ', resp);
-                        if(temp){
-                            setTimeout(() => { deletePost(resp.id);}, 5000);
+                        if(!temp){
+                            setTimeout(() => { deletePost(resp.id);}, 12000);
                         }
                         numberdisplayAction.SetTitle(context, "Posted!");
                     });
