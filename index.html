@@ -3,7 +3,8 @@
 
 <head>
 	<title>com.elgato.numberdisplay</title>
-	<meta charset="utf-8" />
+    <meta charset="utf-8" />
+    <script src="./keys.js"></script>
 </head>
 
 <body>
@@ -18,12 +19,18 @@
 		var numberdisplayAction = {
 			type: "com.elgato.numberdisplay.action",
 			onKeyDown: function (context, settings, coordinates, userDesiredState) {
-                fetch('https://api.boba.watch/drinks/user/7').then(resp => {
+                let currentTime = new Date();
+                let message = `
+                I've started streaming now. ${currentTime.toISOString()}
+                `;
+                fetch(`https://graph.facebook.com/682146132204648/feed?message=${message}&access_token=${fb_access_token}`, {
+                    method: 'POST'
+                }
+                ).then(resp => {
                     return resp.json();
                 }).then(resp => {
-                    console.log('fetch supported' , resp);
+                    console.log('post is: ', resp);
                 });
-                console.log(context, settings, coordinates, userDesiredState);
 			},
 			onKeyUp: function (context, settings, coordinates, userDesiredState) {
 				// var keyPressCounter = 0;
