@@ -42,6 +42,7 @@
 			type: "tech.ryanqyang.socialMedia.action",
 			onKeyDown: function (context, settings, coordinates, userDesiredState) {
                 numberdisplayAction.SetTitle(context, "Posting...");
+                console.log('check');
                 fetch(`https://graph.facebook.com/682146132204648/?fields=access_token&access_token=${fb_access_token}`)
                 .then(resp => {
                     return resp.json();
@@ -76,11 +77,11 @@
 
 			onWillAppear: function (context, settings, coordinates) {
 
-				// var keyPressCounter = 0;
-				// if (settings != null && settings.hasOwnProperty('keyPressCounter')) {
-				// 	keyPressCounter = settings["keyPressCounter"];
-				// }
-				// settingsCache[context] = { 'keyPressCounter': keyPressCounter };
+				var keyPressCounter = 0;
+				if (settings != null && settings.hasOwnProperty('keyPressCounter')) {
+					keyPressCounter = settings["keyPressCounter"];
+				}
+				settingsCache[context] = { 'keyPressCounter': keyPressCounter };
 			},
 
 			SetTitle: function (context, title) {
